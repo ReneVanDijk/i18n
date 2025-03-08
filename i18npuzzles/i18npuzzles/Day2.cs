@@ -27,7 +27,7 @@ class Day2 : BaseDay
             }
         }
 
-        return offSets.Single(kvp => kvp.Value == 4).Key.ToString("s", CultureInfo.InvariantCulture);
+        return offSets.Single(kvp => kvp.Value == 4).Key.ToString("yyyy-MM-ddTHH:mm:sszzz");
     }
 }
 
