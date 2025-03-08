@@ -69,5 +69,25 @@ namespace i18npuzzles {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] i18nday2 {
+            get {
+                object obj = ResourceManager.GetObject("i18nday2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] i18nday2_example {
+            get {
+                object obj = ResourceManager.GetObject("i18nday2.example", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

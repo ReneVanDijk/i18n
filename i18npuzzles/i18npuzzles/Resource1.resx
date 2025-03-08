@@ -121,4 +121,10 @@
   <data name="i18nday1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\i18nday1.txt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="i18nday2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\i18nday2.txt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="i18nday2.example" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\i18nday2.example.txt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
