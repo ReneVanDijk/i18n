@@ -5,6 +5,11 @@ namespace i18npuzzles;
 
 class Day2 : BaseDay
 {
+    public Day2() : base(Resource1.i18nday2_example, Resource1.i18nday2, "2019-06-05T12:15:00+00:00")
+    {
+
+    }
+
     protected override string Solve(byte[] data)
     {
         var result = 0;
