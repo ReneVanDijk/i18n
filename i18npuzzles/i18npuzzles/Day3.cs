@@ -11,9 +11,9 @@ class Day3 : BaseDay
     {
         var result = GetLines(data).Count(line =>
                     line.Length >= 4 && line.Length <= 12 &&
-                    line.Any(ch => char.IsDigit(ch)) &&
-                    line.Any(ch => char.IsUpper(ch)) &&
-                    line.Any(ch => char.IsLower(ch)) &&
+                    line.Any(char.IsDigit) &&
+                    line.Any(char.IsUpper) &&
+                    line.Any(char.IsLower) &&
                     line.Any(ch => ch > 127));
 
         return $"{result}";
