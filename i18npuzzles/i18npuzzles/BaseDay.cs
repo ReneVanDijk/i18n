@@ -6,20 +6,20 @@ namespace i18npuzzles
     {
         private readonly byte[] _example;
         private readonly byte[] _actual;
-        private readonly string _expected;
+        private readonly string _answerForExample;
 
-        protected BaseDay(byte[] example, byte[] actual, string expected)
+        protected BaseDay(byte[] example, byte[] actual, string answerForExample)
         {
             _example = example;
             _actual = actual;
-            _expected = expected;
+            _answerForExample = answerForExample;
         }
 
         public void Solve()
         {
-            var exampleRes = Solve(_example);
-            Console.WriteLine("Example: " + exampleRes);
-            Console.WriteLine("Valid:   " + (exampleRes == _expected));
+            var exampleResult = Solve(_example);
+            Console.WriteLine("Example: " + exampleResult);
+            Console.WriteLine("Valid:   " + (exampleResult == _answerForExample));
             Console.WriteLine("---");
             Console.WriteLine("Actual:  " + Solve(_actual));
             Console.WriteLine("---");
