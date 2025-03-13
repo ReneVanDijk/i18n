@@ -27,8 +27,8 @@ class Day7 : BaseDay
 
             var dt = DateTimeOffset.Parse(line.Split('\t')[0]);
 
-            var isHalifax = halifax.GetUtcOffset(dt.DateTime) == dt.Offset;
-            var isSantiago = santiago.GetUtcOffset(dt.DateTime) == dt.Offset;
+            var isHalifax = halifax.GetUtcOffset(dt) == dt.Offset;
+            var isSantiago = santiago.GetUtcOffset(dt) == dt.Offset;
 
             var correct = int.Parse(line.Split('\t')[1]);
             var wrong = int.Parse(line.Split('\t')[2]);
@@ -52,12 +52,12 @@ class Day7 : BaseDay
         return $"{result}";
     }
 
-    private static DateTimeOffset ConvertTo(TimeZoneInfo halifax, DateTimeOffset dt, int correct, int wrong)
+    private static DateTimeOffset ConvertTo(TimeZoneInfo timezone, DateTimeOffset dt, int correct, int wrong)
     {
         var adjusted = dt.ToUniversalTime()
                                 .Subtract(TimeSpan.FromMinutes(wrong))
                                 .Add(TimeSpan.FromMinutes(correct));
-        var res = TimeZoneInfo.ConvertTime(adjusted, halifax);
+        var res = TimeZoneInfo.ConvertTime(adjusted, timezone);
         return res;
     }
 }
