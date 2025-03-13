@@ -46,11 +46,6 @@ class Day7 : BaseDay
             }
         }
 
-        foreach (var line in adjusted)
-        {
-            Console.WriteLine($"{line.Key + 1} \t- {line.Value:s}{line.Value:zzzz}");
-        }
-
         result = adjusted.Sum(kvp => (kvp.Key + 1) * kvp.Value.Hour);
 
         return $"{result}";
