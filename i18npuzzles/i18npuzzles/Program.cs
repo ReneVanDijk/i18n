@@ -4,7 +4,7 @@ namespace i18npuzzles
     {
         static void Main(string[] args)
         {
-            new Day6().Solve();
+            new Day7().Solve();
         }
     }
 }
