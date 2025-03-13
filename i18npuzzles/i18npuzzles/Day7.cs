@@ -1,4 +1,5 @@
 ﻿using System.Buffers;
+using System.Diagnostics;
 
 namespace i18npuzzles;
 
@@ -42,7 +43,7 @@ class Day7 : BaseDay
             }
             else
             {
-                adjusted[i] = ConvertTo(santiago, dt, correct, wrong);
+                throw new UnreachableException("Date definitions should fall in either halifax or santiago offsets");
             }
         }
 
