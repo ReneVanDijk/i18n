@@ -58,7 +58,7 @@ class Day9 : BaseDay
             }
         }
 
-        string result = string.Join(" ", wroteInDiaryOnNineEleven.OrderBy(s => s).ToArray());
+        string result = string.Join(" ", wroteInDiaryOnNineEleven.Order().ToArray());
         return $"{result}";
     }
 }
