@@ -7,7 +7,7 @@ class Day9 : BaseDay
 
     }
 
-    private DateTime NineEleven = new DateTime(2001, 9, 11);
+    private DateOnly NineEleven = new DateOnly(2001, 9, 11);
 
     protected override string Solve(byte[] data)
     {
@@ -47,11 +47,11 @@ class Day9 : BaseDay
 
         foreach (var (name, dates) in datesByName)
         {
-            var formatsUsed = formats.Where(format => dates.All(date => DateTime.TryParseExact(date, format, null, System.Globalization.DateTimeStyles.None, out _)));
+            var formatsUsed = formats.Where(format => dates.All(date => DateOnly.TryParseExact(date, format, null, System.Globalization.DateTimeStyles.None, out _)));
 
             foreach (var format in formatsUsed)
             {
-                var formattedDates = dates.Select(date => DateTime.ParseExact(date, format, null));
+                var formattedDates = dates.Select(date => DateOnly.ParseExact(date, format, null));
 
                 if (formattedDates.Contains(NineEleven))
                     wroteInDiaryOnNineEleven.Add(name);
