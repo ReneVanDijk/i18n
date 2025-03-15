@@ -47,15 +47,12 @@ class Day9 : BaseDay
 
         foreach (var (name, dates) in datesByName)
         {
-            var formatsUsed = formats.Where(format => dates.All(date => DateOnly.TryParseExact(date, format, null, System.Globalization.DateTimeStyles.None, out _)));
+            var format = formats.Single(format => dates.All(date => DateOnly.TryParseExact(date, format, null, System.Globalization.DateTimeStyles.None, out _)));
 
-            foreach (var format in formatsUsed)
-            {
-                var formattedDates = dates.Select(date => DateOnly.ParseExact(date, format, null));
+            var formattedDates = dates.Select(date => DateOnly.ParseExact(date, format, null));
 
-                if (formattedDates.Contains(NineEleven))
-                    wroteInDiaryOnNineEleven.Add(name);
-            }
+            if (formattedDates.Contains(NineEleven))
+                wroteInDiaryOnNineEleven.Add(name);
         }
 
         string result = string.Join(" ", wroteInDiaryOnNineEleven.Order().ToArray());
