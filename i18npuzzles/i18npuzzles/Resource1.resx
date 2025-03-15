@@ -151,6 +151,9 @@
   <data name="input-8" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\input-8;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="input-9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\input-9;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="test-input-5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\test-input-5;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -162,5 +165,8 @@
   </data>
   <data name="test-input-8" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\test-input-8;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="test-input-9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\test-input-9;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

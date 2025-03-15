@@ -173,6 +173,16 @@ namespace i18npuzzles {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] input_9 {
+            get {
+                object obj = ResourceManager.GetObject("input-9", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] test_input_5 {
             get {
                 object obj = ResourceManager.GetObject("test-input-5", resourceCulture);
@@ -206,6 +216,16 @@ namespace i18npuzzles {
         internal static byte[] test_input_8 {
             get {
                 object obj = ResourceManager.GetObject("test-input-8", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] test_input_9 {
+            get {
+                object obj = ResourceManager.GetObject("test-input-9", resourceCulture);
                 return ((byte[])(obj));
             }
         }
