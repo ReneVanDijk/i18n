@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using System.Diagnostics;
 using System.Text;
 
 namespace i18npuzzles;
@@ -8,19 +7,42 @@ class Day10 : BaseDay
 {
     public Day10() : base(Resource1.test_input_10, Resource1.input_10, "4")
     {
-        var bcryptTest = BCrypt.Net.BCrypt.HashPassword("secret", "$2b$10$v3I80pwHtgxp2ampg4Opy.");
-        Debug.Assert(bcryptTest == "$2b$10$v3I80pwHtgxp2ampg4Opy.hehc03wCR.JBZE6WHsrSQtxred57/PG");
-
-        var compositions = Stuff([(1, new Rune('a')), (2, new Rune('b')), (3, new Rune('c'))]).ToArray();
-        Debug.Assert(compositions.Length == 8);
     }
 
     protected override string Solve(byte[] data)
     {
         var lines = GetLines(data).ToArray();
+        List<string> salts, loginAttempts;
+        Parse(lines, out salts, out loginAttempts);
 
-        var salts = new List<string>();
-        var loginAttempts = new List<string>();
+        int result = 0;
+        Parallel.ForEach(loginAttempts.GroupBy(l => l), attempt =>
+        {
+            var username = attempt.Key.Split(" ")[0];
+            var password = attempt.Key.Split(" ")[1];
+
+            var userpass = salts.Single(s => s.StartsWith(username)).Split(" ")[1];
+            var salt = userpass[..29];
+
+            var compositions = AllCompositions(password.Normalize(NormalizationForm.FormC)).ToArray();
+            foreach (var composition in compositions)
+            {
+                var hash = BCrypt.Net.BCrypt.HashPassword(composition, salt);
+                if (hash == userpass)
+                {
+                    Interlocked.Add(ref result, attempt.Count());
+                    break;
+                }
+            }
+        });
+
+        return $"{result}";
+    }
+
+    private static void Parse(string[] lines, out List<string> salts, out List<string> loginAttempts)
+    {
+        salts = new List<string>();
+        loginAttempts = new List<string>();
         var flipped = false;
         foreach (var l in lines)
         {
@@ -40,43 +62,13 @@ class Day10 : BaseDay
                 loginAttempts.Add(l);
             }
         }
-
-        int result = 0;
-        //foreach (var attempt in loginAttempts)
-        Parallel.ForEach(loginAttempts.GroupBy(l => l), attempt =>
-        {
-            var username = attempt.Key.Split(" ")[0];
-            var password = attempt.Key.Split(" ")[1];
-
-            var salt = salts.Single(s => s.StartsWith(username)).Split(" ")[1][..29];
-            var userpass = salts.Single(s => s.StartsWith(username)).Split(" ")[1];
-
-            var norm = password.Normalize(NormalizationForm.FormC);
-            var passRunes = password.EnumerateRunes().ToArray();
-            var normRunes = norm.EnumerateRunes().ToArray();
-
-            //Debug.Assert(passRunes.Length == norm.Length);
-            var decomposed = Decomposed(norm).ToArray();
-            var decomRunes = decomposed.Select(dec => dec.EnumerateRunes().ToArray());
-            foreach (var option in decomposed)
-            {
-                var x = option.EnumerateRunes().ToArray();
-                var hash = BCrypt.Net.BCrypt.HashPassword(option, salt);
-                if (hash == userpass)
-                {
-                    //Console.WriteLine(attempt.Key);
-                    Interlocked.Add(ref result, attempt.Count());
-                    break;
-                }
-            }
-        });
-
-        return $"{result}";
     }
 
-    private IEnumerable<string> Decomposed(string userpass)
+    private IEnumerable<string> AllCompositions(string userpass)
     {
-        var runes = userpass.EnumerateRunes().Index().Where(r => !r.Item.IsAscii).ToArray();
+        var runes = userpass.EnumerateRunes()
+            .Index()
+            .Where(r => !r.Item.IsAscii).ToArray();
 
         var asdfasfd = Stuff(runes).ToArray();
 
@@ -103,28 +95,15 @@ class Day10 : BaseDay
         }
     }
 
-    static List<(int Index, Rune Item)[]> Stuff((int Index, Rune Item)[] runes)
-    {
-        return GenerateSubsets(runes).Select(x => x.ToArray()).ToList();
-        //if (runes.Length == 1)
-        //    yield return [runes.Single()];
+    static List<(int Index, Rune Item)[]> Stuff((int Index, Rune Item)[] runes) =>
+        TotallyNotChatGpt(runes).Select(x => x.ToArray()).ToList();
 
-        //for (int i = 0; i < runes.Length; i++)
-        //{
-        //    foreach (var x in Stuff(runes.Skip(i+1).ToArray()))
-        //    {
-        //        yield return [runes[i], .. x];
-        //        yield return [.. x];
-        //    }
-        //}
-    }
-
-    static List<List<(int Index, Rune Item)>> GenerateSubsets((int Index, Rune Item)[] input)
+    static List<List<(int Index, Rune Item)>> TotallyNotChatGpt((int Index, Rune Item)[] input)
     {
         List<List<(int Index, Rune Item)>> result = new List<List<(int Index, Rune Item)>>();
         int n = input.Length;
 
-        for (int i = 0; i < (1 << n); i++) // Iterate through all bitmask possibilities
+        for (int i = 0; i < (1 << n); i++)
         {
             List<(int Index, Rune Item)> subset = new List<(int Index, Rune Item)>();
             for (int j = 0; j < n; j++)
