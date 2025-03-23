@@ -83,13 +83,10 @@ class Day17 : BaseDay
             var runes = decoded.EnumerateRunes().ToArray();
             Console.WriteLine(decoded);
 
-            //var idx = decoded.IndexOf('╳');
             var runeIdx = Array.IndexOf(runes, new Rune('╳'));
 
             if (runeIdx != -1)
             {
-                if (res != 0)
-                    Console.WriteLine("WEIRD");
                 res = runeIdx * lineCount;
             }
 
@@ -196,25 +193,6 @@ class Day17 : BaseDay
         return (-1, -1);
     }
 
-    private int GetIncompleteHorizontal(Block[,] grid)
-    {
-        for (int i = 0; i < grid.GetLength(0); i++)
-        {
-            for (int y = 0; y < grid.GetLength(1); y++)
-            {
-                if (grid[i, y] == null)
-                    return i;
-            }
-        }
-        throw new UnreachableException();
-    }
-
-    private Block Concat(Block block, Block other)
-    {
-        return new(block.Border | other.Border,
-            block.Lines.Index().Select(i => new BlockLine(i.Item.Hex + other.Lines[i.Index].Hex, i.Item.UTF8Decoded + other.Lines[i.Index].UTF8Decoded)).ToList());
-    }
-
     private (int width, int height, int verticalBlocks, int horizontalBlocks) DetermineGridSize(List<Block> blocks, out List<Block> topOrderBlocks)
     {
         var topblocks = blocks.Where(b => b.Border.HasFlag(Border.Top)).ToArray();
@@ -289,24 +267,6 @@ class Day17 : BaseDay
         return b;
     }
 
-    private void Print(Block block)
-    {
-        Console.WriteLine();
-        Console.WriteLine();
-        Console.WriteLine();
-
-        Console.WriteLine(block.Border);
-
-        foreach (var line in block.Lines)
-        {
-            Console.WriteLine(line.UTF8Decoded);
-        }
-
-        Console.WriteLine();
-        Console.WriteLine();
-        Console.WriteLine();
-    }
-
     private List<Block> Blocks(string[] lines)
     {
         var blocks = new List<Block>();
@@ -349,9 +309,6 @@ class Day17 : BaseDay
     }
 
     record Block(Border Border, List<BlockLine> Lines);
-    record BlockLine(string Hex, string UTF8Decoded)
-    {
-        byte[] Bytes => Convert.FromHexString(Hex);
-    }
+    record BlockLine(string Hex, string UTF8Decoded);
 }
 
