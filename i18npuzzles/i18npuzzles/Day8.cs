@@ -22,18 +22,6 @@ class Day8 : BaseDay
         return $"{result}";
     }
 
-    IEnumerable<string> GetLines(byte[] data)
-    {
-        using (StringReader reader = new(Encoding.UTF8.GetString(data)))
-        {
-            string? line;
-            while ((line = reader.ReadLine()) != null)
-            {
-                yield return line;
-            }
-        }
-    }
-
     bool Valid((int Index, string line) x)
     {
         var lengthValid = x.line.Length is >= 4 and <= 12;

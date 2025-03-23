@@ -12,8 +12,6 @@ class Day2 : BaseDay
 
     protected override string Solve(byte[] data)
     {
-        var result = 0;
-
         Dictionary<DateTimeOffset, int> offSets = new();
 
         using (StringReader reader = new(Encoding.UTF8.GetString(data)))
